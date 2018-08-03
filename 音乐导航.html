@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>音乐导航</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            width: 60%;
+            margin: 50px auto;
+        }
+        li{
+            list-style: none;
+            width: 90px;
+            height: 200px;
+            float: left;
+            border: 1px solid #ccc;
+            margin-left: -1px;
+            position: relative;
+            left: 0;
+            top: 0;
+            text-align: center;
+            line-height: 200px;
+            overflow: hidden;
+            /*z-index: 99;*/
+        }
+        span{
+            width: 90px;
+            height: 200px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+        i{
+            position: absolute;
+            width: 90px;
+            height: 200px;
+            background-color: red;
+            left: 0;
+            bottom: -200px;
+        }
+        .box{
+            width: 60%;
+            margin: 10px auto;
+        }
+        p{
+            margin: 10px 0;
+            font-size: 26px;
+        }
+        p:first-of-type{
+            margin-left: 90px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+
+        <p>我是一个粉刷匠</p>
+        <p>5353531 24325 5353531 24321</p>
+        <p>2244315 24325 5353531 24321</p>
+</div>
+
+<ul>
+    <li><span>1</span><i></i></li>
+    <li><span>2</span><i></i></li>
+    <li><span>3</span><i></i></li>
+    <li><span>4</span><i></i></li>
+    <li><span>5</span><i></i></li>
+    <li><span>6</span><i></i></li>
+    <li><span>7</span><i></i></li>
+    <li><span>8</span><i></i></li>
+    <audio src="m/1.mp3"></audio>
+    <audio src="m/2.mp3"></audio>
+    <audio src="m/3.mp3"></audio>
+    <audio src="m/4.mp3"></audio>
+    <audio src="m/5.mp3"></audio>
+    <audio src="m/6.mp3"></audio>
+    <audio src="m/7.mp3"></audio>
+    <audio src="m/c5.mp3"></audio>
+</ul>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+    var audios = document.querySelectorAll('audio');
+    var arr = ['red','green','blue','yellow','purple','pink','orange','gray'];
+    $('i').each(function (index,el) {
+       $(el).css('backgroundColor',arr[index]);
+    })
+
+    $('li').hover(function () {
+        var index = $(this).index();
+        audios[index].load();
+        audios[index].play();
+        $(this).children('i').stop().animate({bottom:0},300)},
+        function () {
+        $(this).children('i').stop().animate({bottom:-200},300)
+    });
+    $(window).keyup(function (e) {
+        console.log(e.keyCode);
+        if(e.keyCode >= 49 && e.keyCode <= 56){
+            var index = e.keyCode -49;
+            $('li').eq(index).trigger('mouseenter');
+        }
+        setTimeout(function () {
+            $('li').eq(index).trigger('mouseleave');
+        },300)
+    })
+</script>
+</html>
